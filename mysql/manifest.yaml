@@ -1,0 +1,86 @@
+#headless service, normal service, statefullset
+kind: StatefulSet
+apiVersion: v1
+metadata: 
+  name: mysql-ss
+  namespace: expense
+  labels:
+    app: mysql
+    application: db
+    project: expense
+    version: mysql1.0
+spec:
+  serviceName: "mysql-headless"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mysql
+      application: db
+      project: expense
+      version: mysql1.0
+  template:
+    metadata:
+      name: msql-pod-ss
+      namespace: expense
+      labels:
+        app: mysql
+        application: db
+        project: expense
+        version: mysql1.0
+    spec:
+      containers:
+        - name: mysql
+          image: joindevops/mysql-1.0.0
+          ports:
+            containerPort: 3306
+          volumeMounts:
+            - name: mysql-ss
+              mountPath: /usr/share/nginx/html
+  volumeClaimTemplate:
+    metadata: 
+      name: mysql-pvc
+      namespace: expense
+      labels:
+        app: mysql
+        application: db
+        project: expense
+        version: mysql1.0
+    spec:
+      storageClassName: "ebs-sc"
+      accessMethods: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql-headless
+  namespace: expense
+spec:
+  clusterIP: None
+  selector:
+    app: mysql
+    application: db
+    project: expense
+    version: mysql1.0
+  ports:
+    - port: 3306
+      name: web
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql-normal
+  namespace: expense
+spec:
+  selector:
+    app: mysql
+    application: db
+    project: expense
+    version: mysql1.0
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+      nodePort: 30010
