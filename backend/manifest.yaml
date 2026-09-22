@@ -36,8 +36,8 @@ spec:
       - name: backend-image
         image: dhanunjaya23230/backend:1.0.0
         ports:
-          - port: 8080
-            targetPort: 8080
+        - port: 8080
+          targetPort: 8080
 ---
 kind: Service
 apiVersion: v1
