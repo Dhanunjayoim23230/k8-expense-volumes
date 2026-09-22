@@ -29,13 +29,13 @@ spec:
         version: mysql1.0
     spec:
       containers:
-        - name: mysql
-          image: joindevops/mysql-1.0.0
-          ports:
-            containerPort: 3306
-          volumeMounts:
-            - name: mysql-ss
-              mountPath: /usr/share/nginx/html
+      - name: mysql
+        image: joindevops/mysql-1.0.0
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: mysql-ss
+          mountPath: /usr/share/nginx/html
   volumeClaimTemplate:
     metadata: 
       name: mysql-pvc
