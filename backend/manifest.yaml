@@ -36,7 +36,7 @@ spec:
       - name: backend-image
         image: dhanunjaya23230/backend:1.0.0
         ports:
-          containerPort: 8080
+        - containerPort: 8080
           
 ---
 kind: Service
