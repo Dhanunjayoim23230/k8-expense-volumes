@@ -36,8 +36,8 @@ spec:
         volumeMounts:
         - name: mysql-ss
           mountPath: /usr/share/nginx/html
-  volumeClaimTemplate:
-    metadata: 
+  volumeClaimTemplates:
+  - metadata: 
       name: mysql-pvc
       namespace: expense
       labels:
