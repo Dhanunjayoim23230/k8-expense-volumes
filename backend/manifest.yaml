@@ -1,1 +1,61 @@
-kind:
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: backend
+  namespace: expense
+data:
+
+
+
+---
+kind: Deployment
+apiVersion: v1
+metadata:
+  name: backend-dep
+  namespace: expense
+  labels:
+    app: backend
+    version: "1.0.0"
+    tier: application
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+      version: "1.0.0"
+      tier: application
+  template:
+    metadata:
+      name: backend-pod
+      labels:
+        app: backend
+        version: "1.0.0"
+        tier: application
+    spec:
+      containers:
+        - name: backend-image
+          image: dhanunjaya23230/backend:1.0.0
+          ports:
+            - port: 8080
+              targetPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: backend-svc
+  labels:
+    app: backend
+    version: "1.0.0"
+    tier: application
+spec:
+  type: LoadBalancer
+  selector:
+    app: backend
+    version: "1.0.0"
+    tier: application
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+    nodePort: 8080
+
