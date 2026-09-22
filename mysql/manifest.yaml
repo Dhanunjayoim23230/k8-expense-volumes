@@ -47,7 +47,7 @@ spec:
         version: mysql1.0
     spec:
       storageClassName: "ebs-sc"
-      accessMethods: ["ReadWriteOnce"]
+      accessModes: ["ReadWriteOnce"]
       resources:
         requests:
           storage: 1Gi
