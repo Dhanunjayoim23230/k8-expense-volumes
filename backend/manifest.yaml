@@ -35,8 +35,10 @@ spec:
       containers:
       - name: backend-image
         image: joindevops/backend:1.0.0
-        ports:
-        - containerPort: 8080
+        envfrom:
+        - configMapRef:
+            name: backend
+        
           
 ---
 kind: Service
