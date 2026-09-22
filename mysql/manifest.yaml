@@ -1,6 +1,6 @@
 #headless service, normal service, statefullset
 kind: StatefulSet
-apiVersion: v1
+apiVersion: apps/v1
 metadata: 
   name: mysql-ss
   namespace: expense
@@ -74,6 +74,7 @@ metadata:
   name: mysql-normal
   namespace: expense
 spec:
+  type: ClusterIP
   selector:
     app: mysql
     application: db
@@ -83,4 +84,4 @@ spec:
     - protocol: TCP
       port: 3306
       targetPort: 3306
-      nodePort: 30010
+    
