@@ -78,7 +78,7 @@ metadata:
     tier: frontend
 spec:
   replicas: 2
-  selectors:
+  selector:
     matchLabels:
       app: frontend
       version: "1.0.0"
