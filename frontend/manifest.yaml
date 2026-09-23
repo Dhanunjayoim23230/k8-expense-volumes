@@ -92,7 +92,7 @@ spec:
         tier: frontend
     spec:
       volumes:
-      - name: nginx
+      - name: nginx-conf
         configMap:
           name: frontend-configmap
           items:
@@ -104,7 +104,7 @@ spec:
         ports:
         - containerPort: 8080
         volumeMounts:
-        - name: nginx
+        - name: nginx-conf
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
           readOnly: true
