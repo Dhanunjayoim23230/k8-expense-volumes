@@ -104,8 +104,10 @@ spec:
       volumes:
       - name: nginx
         configMap:
-        - key: nginx.conf
-          path: nginx.conf
+          name: nginx
+          items:
+          - key: nginx.conf
+            path: nginx.conf
 
 ---
 kind: Service
