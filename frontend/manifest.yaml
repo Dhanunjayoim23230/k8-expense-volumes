@@ -1,0 +1,67 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: frontend-configmap
+  namespace: expense
+  labels:
+    app: frontend
+    version: "1.0.0"
+    tier: frontend
+spec:
+  data: nginx.conf | 
+
+
+---
+kind: Deployment
+apiVersion: v1
+metadata:
+  name: frotend-deployment
+  namespace: expense
+  labels:
+    app: frontend
+    version: "1.0.0"
+    tier: frontend
+spec:
+  replicas: 2
+  selectors:
+    matchLabels:
+      app: frontend
+      version: "1.0.0"
+      tier: frontend
+  template:
+    metadata:
+      name: frontend-pod
+      labels:
+        app: frontend
+        version: "1.0.0"
+        tier: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: joindevops/frontend:1.0.0
+        envFrom:
+        - configMapRef:
+            - key: nginx.conf
+              value: nginx.conf
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: frontend-svc
+  namespace: expense
+  labels:
+    app: frontend
+    version: "1.0.0"
+    tier: frontend
+spec:
+  type: LoadBalancer
+  selector:
+    app: frontend
+    version: "1.0.0"
+    tier: frontend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 30009
