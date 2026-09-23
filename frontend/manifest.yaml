@@ -101,11 +101,11 @@ spec:
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
           readOnly: true
-      volumes:
-      - name: nginx
-        configMap:
-        - key: nginx.conf
-          path: nginx.conf
+    volumes:
+    - name: nginx
+      configMap:
+      - key: nginx.conf
+        path: nginx.conf
 
 ---
 kind: Service
