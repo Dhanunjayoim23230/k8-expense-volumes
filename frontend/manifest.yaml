@@ -91,7 +91,6 @@ spec:
         version: "1.0.0"
         tier: frontend
     spec:
-      containers:
       volumes:
       - name: nginx
         configMap:
@@ -99,6 +98,7 @@ spec:
           items:
           - key: nginx.conf
             path: nginx.conf
+      containers:
       - name: frontend
         image: joindevops/frontend:1.0.0
         ports:
